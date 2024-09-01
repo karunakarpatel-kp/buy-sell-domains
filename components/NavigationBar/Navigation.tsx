@@ -8,6 +8,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { usePathname, useRouter } from "next/navigation";
 import { IoMdClose } from "react-icons/io";
 import KarunakarPatelImage from "@Public/karunakarImage.svg";
+import Wave from "react-wavify";
 
 const Navigation = () => {
   const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
@@ -30,12 +31,16 @@ const Navigation = () => {
   };
 
   useEffect(() => {
-    if (pathName === "/") {
-      setHomePage(true);
-    } else {
-      setHomePage(false);
-    }
-  }, [pathName, homePage]);
+    const renderBrandLogoPic = () => {
+      if (pathName === "/") {
+        setHomePage(true);
+      } else {
+        setHomePage(false);
+      }
+    };
+
+    renderBrandLogoPic();
+  }, [pathName]);
 
   return (
     <>
@@ -74,7 +79,7 @@ const Navigation = () => {
               fontWeight="600"
             >
               <tspan x="0" y="40">
-                Vehicle
+                Logo Name
               </tspan>
             </text>
             <text
@@ -87,7 +92,7 @@ const Navigation = () => {
               fontWeight="600"
             >
               <tspan x="0" y="0">
-                Masti
+                Subname
               </tspan>
             </text>
             <path
@@ -104,6 +109,7 @@ const Navigation = () => {
             <li>
               <Link href="/" className="text-white">
                 <FaHome size={27} />
+                {/* Login */}
               </Link>
             </li>
             {/* <li>
@@ -134,8 +140,23 @@ const Navigation = () => {
         <div className="hidden md:invisible md:flex col-span-1 border border-white self-stretch justify-center items-center ">
           Right
         </div>
-      </div>
 
+        <div className="bg-brandColor dark:bg-slate-900 border-red-800">
+          {/* React Wavify */}
+          <Wave
+            // fill={process.env.brandColor}
+            fill="#36106A"
+            paused={false}
+            className="rotate-180 absolute top-0 right-0 left-0 -bottom-20 -z-40  "
+            options={{
+              height: 70,
+              amplitude: 10,
+              speed: 0.15,
+              points: 3,
+            }}
+          />
+        </div>
+      </div>
       {/* Mobile */}
       <div
         className={
@@ -233,22 +254,38 @@ const Navigation = () => {
           </li> */}
         </ul>
       </div>
-
-      <div
-        className={`${
-          homePage
-            ? "bg-brandColor dark:bg-slate-900 dark:border-b dark:border-b-slate-700  border-0 border-red-900 px-10"
-            : "hidden"
-        }`}
-      >
-        <div className="border-0 border-white text-white   max-w-7xl m-auto pt-14">
-          <div className="kpImage border-0 border-sky-800 flex justify-center">
-            <Image src={KarunakarPatelImage} alt="Karunakar Patel Image" className="ring-2  rounded-full" />
+      <div className=" relative">
+        <div
+          className={` ${
+            homePage
+              ? "bg-brandColor dark:bg-slate-900 dark:border-b dark:border-b-slate-700  border-0 border-red-900 px-10"
+              : "hidden"
+          }`}
+        >
+          <div className="border-0 border-white text-white   max-w-7xl m-auto pt-14">
+            <div className="kpImage border-0 border-sky-800 flex justify-center">
+              <Image src={KarunakarPatelImage} alt="Karunakar Patel Image" className="ring-2  rounded-full" />
+            </div>
+            <div className="text-white border-0 text-center pb-6">
+              <h1 className="text-white font-bold text-3xl md:text-4xl">Welcome To VehicleMasti</h1>
+              <p className="text-white font-semibold text-xl">A Place where you will learn about Automobiles</p>
+            </div>
           </div>
-          <div className="text-white border-0 text-center pb-6">
-            <h1 className="text-white font-bold text-3xl md:text-4xl">Welcome To VehicleMasti</h1>
-            <p className="text-white font-semibold text-xl">A Place where you will learn about Automobiles</p>
-          </div>
+        </div>
+        <div>
+          {/* React Wavify */}
+          <Wave
+            fill="#36106A"
+            // fill={process.env.brandColor}
+            paused={false}
+            className="rotate-180 absolute top-0 -bottom-20 -z-10 dark:bg-slate-600 "
+            options={{
+              height: 50,
+              amplitude: 20,
+              speed: 0.15,
+              points: 5,
+            }}
+          />
         </div>
       </div>
     </>

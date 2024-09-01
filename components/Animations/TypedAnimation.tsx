@@ -20,8 +20,8 @@ const TypedAnimation = () => {
     };
   }, []);
   return (
-    <div className="App text-xl font-semibold mb-4">
-      If you love this blog post, please share it on <span ref={el} className="text-sky-700 dark:text-slate-300" />
+    <div className="App text-xl font-semibold mb-4 mt-5">
+      If you love this blog, please share it on <span ref={el} className="text-sky-700 dark:text-slate-300" />
     </div>
   );
 };

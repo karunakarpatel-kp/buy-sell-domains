@@ -20,8 +20,8 @@
     ],
     "paths": {
       // "@/*": ["./*"],
-      "@Components/*": ["./Components/*"],
-      "@Navigation/*": ["./Components/NavigationBar/*"],
+      "@Components/*": ["./components/*"],
+      "@Navigation/*": ["./components/NavigationBar/*"],
       "@Public/*": ["./public/*"]
     }
   },
