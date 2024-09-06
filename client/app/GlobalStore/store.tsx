@@ -1,11 +1,15 @@
+"use client";
+
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import { centralCounterValue } from "./Slices/sampleSlice";
+import loginSlice from "./Slices/LoginSlice/loginSlice";
+import registerSlice from "./Slices/RegisterSlice/RegisterSlice";
 
 const store = configureStore({
   reducer: {
     // One Reducer
-    counterSlice: counter,
+    loginSlice: loginSlice,
+    registerSlice: registerSlice,
   },
 });
 

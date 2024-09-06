@@ -1,9 +1,33 @@
+"use client";
+
+import { sendUserRegistrationDetails } from "app/GlobalStore/Slices/RegisterSlice/RegisterSlice";
+import { useAppDispatch } from "app/GlobalStore/store";
 import React from "react";
 
 const Registration = () => {
+  const dispatch = useAppDispatch();
+  const onRegistrationSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    const userEnteredRegObj: any = {
+      userName: formData.get("userName"),
+      fullName: formData.get("fullName"),
+      email: formData.get("email"),
+      phoneNumber: formData.get("phoneNumber"),
+      passWord: formData.get("passWord"),
+      user_role: formData.get("buyer-or-seller"),
+      // addressProof: formData.get("address-proof"),
+      addressProof: "address-proof",
+    };
+
+    dispatch(sendUserRegistrationDetails(userEnteredRegObj));
+  };
+
   return (
     <div className="border border-slate-100 rounded-md shadow-sm w-5/6 m-auto  py-4 px-3">
-      <form>
+      <form onSubmit={onRegistrationSubmit} name="registration-form">
         <label className="block">
           <span className="block  font-semibold mt-3 pl-1">Please Enter UserName</span>
           <input
@@ -66,7 +90,7 @@ const Registration = () => {
           </span>
           <input
             type="password"
-            name="password"
+            name="passWord"
             autoComplete="false"
             required
             className="mt-1 px-3 py-2 bg-white border  border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md focus:ring-1"
@@ -80,6 +104,7 @@ const Registration = () => {
           </span>
           <select
             required
+            name="buyer-or-seller"
             id="select-buyer-seller"
             className="mt-1 px-3 py-2 bg-white border  border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md focus:ring-1"
           >
@@ -97,6 +122,7 @@ const Registration = () => {
           </span>
           <input
             type="file"
+            name="address-proof"
             className="block w-full text-sm text-slate-500 pl-1 border border-slate-100 py-2 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 mt-2 cursor-pointer"
           />
         </label>
