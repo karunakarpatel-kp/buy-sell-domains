@@ -10,13 +10,12 @@ export const metadata: any = CustomMetaData({ presentURL: SEO_OBJ.HOME_PAGE.abso
 
 const Home = () => {
   return (
-    <>
+    <div className="w-full">
       {/* Confetti */}
       <RainfallAnimation />
-      <div className="border-0 border-black ">
-        <ListingCard />
-      </div>
-    </>
+      {/* Listings */}
+      <ListingCard />
+    </div>
   );
 };
 

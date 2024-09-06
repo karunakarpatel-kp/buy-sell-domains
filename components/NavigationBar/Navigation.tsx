@@ -6,9 +6,11 @@ import Image from "next/image";
 import { FaCar, FaCarSide, FaHome } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { usePathname, useRouter } from "next/navigation";
-import { IoMdClose } from "react-icons/io";
+import { IoIosLogIn, IoMdClose } from "react-icons/io";
 import KarunakarPatelImage from "@Public/karunakarImage.svg";
 import Wave from "react-wavify";
+import { ImBlog } from "react-icons/im";
+import { MdAppRegistration, MdLogin } from "react-icons/md";
 
 const Navigation = () => {
   const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
@@ -112,14 +114,14 @@ const Navigation = () => {
                 {/* Login */}
               </Link>
             </li>
-            {/* <li>
-              <Link href="/Blog" className="text-white">
-                <ImBlog size={25} className="pt-0" />
-              </Link>
-            </li> */}
             <li>
-              <Link href="/cars" className="text-white">
-                <FaCarSide size={25} className="pt-0" />
+              <Link href="/login" className="text-white">
+                <IoIosLogIn size={25} className="pt-0" />
+              </Link>
+            </li>
+            <li>
+              <Link href="/register" className="text-white no-underline border border-slate-300 rounded-sm p-1 px-2">
+                Register
               </Link>
             </li>
             {/* <li>
