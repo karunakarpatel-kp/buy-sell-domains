@@ -26,7 +26,7 @@ const Registration = () => {
   };
 
   return (
-    <div className="border border-slate-100 rounded-md shadow-sm w-5/6 m-auto  py-4 px-3">
+    <div className="border border-slate-100 rounded-md shadow-md w-5/6 m-auto  py-4 px-6">
       <form onSubmit={onRegistrationSubmit} name="registration-form">
         <label className="block">
           <span className="block  font-semibold mt-3 pl-1">Please Enter UserName</span>

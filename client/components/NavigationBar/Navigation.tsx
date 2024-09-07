@@ -153,7 +153,7 @@ const Navigation = () => {
             options={{
               height: 70,
               amplitude: 10,
-              speed: 0.15,
+              speed: 0.25,
               points: 3,
             }}
           />
