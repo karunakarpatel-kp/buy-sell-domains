@@ -1,38 +1,57 @@
+const logger = require("node-color-log");
+const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { default: mongoose } = require("mongoose");
 
-const loginUserModel = require("../../models/loginUserModel");
+const registerUserModel = require("../../models/registerUserModel");
 
-const registerController = async (req, res, next) => {
-  const { userName, fullName, email, phoneNumber, passWord, user_role, addressProof } = req.body;
+const registerController = asyncHandler(async (req, res, next) => {
+  const { userName, fullName, email, phoneNumber, passWord } = req.body;
 
-  if (!userName || !fullName || !email || !phoneNumber || !passWord || !user_role || !addressProof) {
+  if (!userName || !fullName || !email || !phoneNumber || !passWord) {
     res.status(400);
-    throw new Error("All Fields are required");
+    let msg = "All fields are mandatory";
+    logger.error(msg);
+    throw new Error(msg);
+  }
+
+  const userNameFromDB = await registerUserModel.findOne({ userName });
+  const phoneNumberFromDB = await registerUserModel.findOne({ phoneNumber });
+  const emailFromDB = await registerUserModel.findOne({ email });
+
+  if (userNameFromDB) {
+    res.status(400);
+    let msg = "UserName had already been registered with the system";
+    logger.error(msg);
+    throw new Error(msg);
+  }
+
+  if (phoneNumberFromDB) {
+    res.status(400);
+    let msg = "PhoneNumber had already been registered with the system";
+    logger.error(msg);
+    throw new Error(msg);
+  }
+
+  if (emailFromDB) {
+    res.status(400);
+    let msg = "Email had already been registered with the system";
+    logger.error(msg);
+    throw new Error(msg);
   }
 
   const hashedPassword = await bcrypt.hash(passWord, 10);
 
-  // ! Connection to DB
-  const sendData = new loginUserModel({
-    userName: "Hello",
-    passWord: "Hello",
-  });
-
-  const data = await sendData.save();
-
-  res.send({
+  const finalUserRegObj = await new registerUserModel({
     userName,
     fullName,
     email,
     phoneNumber,
     passWord: hashedPassword,
-    user_role,
-    addressProof,
-    message: "message from backend server Bro...!",
-    data,
   });
-};
+
+  const saveDataToDB = await finalUserRegObj.save();
+
+  res.send({ data: saveDataToDB, message: "User has successfully registerd" });
+});
 
 module.exports = { registerController };

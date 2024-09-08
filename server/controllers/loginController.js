@@ -2,41 +2,49 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const logger = require("node-color-log");
+const asyncHandler = require("express-async-handler");
+
+const loginUserModel = require("../models/loginUserModel");
+const registerUserModel = require("../models/registerUserModel");
 
 const app = express();
 
-const loginController = async (req, res, next) => {
+const loginController = asyncHandler(async (req, res, next) => {
   const { userName, passWord } = req.body;
 
   if (!userName || !passWord) {
     res.status(400);
-    throw new Error("All Fields are required");
+    let errorMsg = "All Fields are required";
+    logger.error("All Fields are required");
+    throw new Error(errorMsg);
   }
 
-  //?  When user enters the userName, we need to check it in the db using userName
-  //! const user = await User.findOne({userName})
-  // if there is no user with the userName entered by user
-  let user = false;
-  if (!user) {
-    res.status(401);
-    throw new Error("Authentication Failed or there is no user associated with the userName");
+  const userNameFromDB = await registerUserModel.findOne({ userName });
+
+  if (!userNameFromDB) {
+    res.status(400);
+    let msg = "Authentication Failed: There is no account associated with the userName";
+    logger.error(msg);
+    throw new Error(msg);
   }
 
-  const userAvailable = await user.findOne({ userName });
-  const dbHashedPassword = await userAvailable.passWord;
-  const passWordMatch = await bcrypt.compare(dbHashedPassword, passWord);
+  const dbHashedPassword = await userNameFromDB.passWord;
+
+  const passWordMatch = await bcrypt.compare(passWord, dbHashedPassword);
 
   if (!passWordMatch) {
     res.status(401);
     throw new Error("Login Credentials are incorrect");
   }
 
-  const token = await jwt.sign({ userId: user_id }, process.env.JWT_SECRET_KEY, { expiresIn: "15m" });
+  const token = jwt.sign({ userName: passWord }, process.env.JWT_SECRET_KEY, { expiresIn: "15m" });
 
   res.send({
+    message: "User logged in successfully",
     userName,
     token,
   });
-};
+});
 
 module.exports = { loginController };

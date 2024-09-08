@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 
 const loginRoute = require("./routers/loginRoute.js");
 const registerRoute = require("./routers/registerRoute.js");
-const errorHandler = require("./middlewares/errorMiddleware/errorHandler.js");
+const { errorHandler } = require("./middlewares/errorMiddleware/errorHandler.js");
 const dbConnection = require("./DBConnection/mongooseConnection.js");
 
 const app = express();
