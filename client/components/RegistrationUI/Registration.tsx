@@ -29,11 +29,11 @@ const Registration = () => {
     dispatch(registrationService(userEnteredRegObj));
   };
 
-  useEffect(() => {
-    if (userRegistered) {
-      navigate.push("/login");
-    }
-  }, [userRegistered]);
+  // useEffect(() => {
+  //   if (userRegistered) {
+  //     navigate.push("/login");
+  //   }
+  // }, [userRegistered]);
 
   return (
     <div className="border border-slate-100 rounded-md shadow-md w-5/6 m-auto  py-4 px-6">

@@ -60,7 +60,6 @@ export const registrationService = createAsyncThunk(
       },
       data: incomingData,
     };
-
     try {
       const resP = await axios(config);
       const dataResp = await resP.data;

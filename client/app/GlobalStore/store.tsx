@@ -3,16 +3,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import registerSlice from "./Slices/RegisterSlice/RegisterSlice";
-import PaymentSlice from "./Slices/RazorPaySlice/PaymentSlice";
 import loginSlice from "./Slices/LoginSlice/loginSlice";
 import UISlice from "./Slices/UISlice/UISlice";
+import rzPayOrderSlice from "./Slices/RazorPaySlice/rzPayOrderSlice";
 
 const store = configureStore({
   reducer: {
     // One Reducer
     loginSlice: loginSlice,
     registerSlice: registerSlice,
-    paymentSlice: PaymentSlice,
+    rzPayOrderSlice: rzPayOrderSlice,
     // UI Slice
     UISlice: UISlice,
   },

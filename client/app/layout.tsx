@@ -4,6 +4,7 @@ import Navigation from "@Components/NavigationBar/Navigation";
 import Footer from "@Components/Footer/Footer";
 import { MdLightMode } from "react-icons/md";
 import GlobalProvider from "./GlobalStore/globalProvider";
+import Script from "next/script";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ const RootLayout = (props: RootLayoutProps) => {
 
   return (
     <html lang="en" className={false ? "dark transition-colors duration-100" : "transition-all duration-300"}>
+      <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
       <body className="relative p-0 m-0 bg-white dark:bg-slate-900 dark:prose-invert prose prose-stone min-h-[65vh] max-w-full border-0 border-sky-400  h-full overflow-x-hidden w-full block box-border">
         <GlobalProvider>
           <header className="dark:bg-slate-900">
