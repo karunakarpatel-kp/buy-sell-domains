@@ -1,7 +1,7 @@
 const logger = require("node-color-log");
 
 const errorHandler = (err, req, res, next) => {
-  const errStat = err.statusCode || 500;
+  const errStat = res.statusCode || 500;
   const errMsg = err.message || "Something went wrong";
 
   res.status(errStat).send({

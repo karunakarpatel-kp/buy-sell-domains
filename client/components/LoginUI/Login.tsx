@@ -1,10 +1,16 @@
 "use client";
-import { sendLoginUserCred } from "app/GlobalStore/Slices/LoginSlice/loginSlice";
-import { useAppDispatch } from "app/GlobalStore/store";
-import React from "react";
+import { loginUserService, sendLoginUserCred } from "app/GlobalStore/Slices/LoginSlice/loginSlice";
+import { sendNotificationToast } from "app/GlobalStore/Slices/UISlice/UISlice";
+import { useAppDispatch, useAppSelector } from "app/GlobalStore/store";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 const Login = () => {
   const dispatch = useAppDispatch();
+  const loginUserServiceStatus = useAppSelector((state) => state.loginSlice.loginServiceState.loginUserServiceStatus);
+  const navigate = useRouter();
+
   const onFormSubmit = (event: any) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -13,9 +19,16 @@ const Login = () => {
       userName: formData.get("userName") as string,
       passWord: formData.get("passWord") as string,
     };
-
     dispatch(sendLoginUserCred(userEnteredObj));
+    dispatch(loginUserService(userEnteredObj));
   };
+
+  useEffect(() => {
+    if (loginUserServiceStatus === "FULLFILLED") {
+      navigate.push("/");
+    }
+  }, [loginUserServiceStatus]);
+
   return (
     <div className="border border-slate-100 rounded-md shadow-sm w-5/6 m-auto  py-4 px-3">
       <form onSubmit={onFormSubmit} name="login-form">

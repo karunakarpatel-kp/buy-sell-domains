@@ -11,10 +11,18 @@ import KarunakarPatelImage from "@Public/karunakarImage.svg";
 import Wave from "react-wavify";
 import { ImBlog } from "react-icons/im";
 import { MdAppRegistration, MdLogin } from "react-icons/md";
+import { useAppDispatch, useAppSelector } from "app/GlobalStore/store";
+import { logOutUser } from "app/GlobalStore/Slices/LoginSlice/loginSlice";
+import { sendNotificationToast } from "app/GlobalStore/Slices/UISlice/UISlice";
 
 const Navigation = () => {
   const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
   const [homePage, setHomePage] = useState<boolean>(false);
+
+  const userLoggedInstatus = useAppSelector((state) => state.loginSlice.loginServiceState.userLoggedIn);
+
+  const dispatch = useAppDispatch();
+
   const navigate = useRouter();
   const pathName = usePathname();
 
@@ -43,6 +51,23 @@ const Navigation = () => {
 
     renderBrandLogoPic();
   }, [pathName]);
+
+  const onLogOutClickHandler = () => {
+    dispatch(logOutUser());
+    dispatch(sendNotificationToast({ Toast: { message: "User Logged Out Successfully", variant: "info" } }));
+  };
+
+  const loginClassName = `text-white no-underline border border-slate-300 rounded-sm  px-2 ${
+    userLoggedInstatus ? "hidden" : "visible"
+  }`;
+
+  const registerClassName = `text-white no-underline border border-slate-300 rounded-sm  px-2 ${
+    userLoggedInstatus ? "hidden" : "visible"
+  }`;
+
+  const logOutClassName = `text-white no-underline border border-slate-300 rounded-sm  px-2 ${
+    userLoggedInstatus ? "visible" : "hidden"
+  }`;
 
   return (
     <>
@@ -114,16 +139,24 @@ const Navigation = () => {
                 {/* Login */}
               </Link>
             </li>
-            <li>
-              <Link href="/login" className="text-white">
-                <IoIosLogIn size={25} className="pt-0" />
+
+            <li className={loginClassName}>
+              <Link href="/login" className="text-white no-underline px-2">
+                Login
               </Link>
             </li>
-            <li>
-              <Link href="/register" className="text-white no-underline border border-slate-300 rounded-sm p-1 px-2">
+
+            <li className={registerClassName}>
+              <Link href="/register" className="text-white no-underline px-2 text-center ">
                 Register
               </Link>
             </li>
+            <li className={logOutClassName}>
+              <button onClick={onLogOutClickHandler} className="text-white px-2 no-underline">
+                Logout
+              </button>
+            </li>
+
             {/* <li>
               <Link
                 href="/"

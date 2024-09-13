@@ -1,11 +1,14 @@
 "use client";
 
-import { sendUserRegistrationDetails } from "app/GlobalStore/Slices/RegisterSlice/RegisterSlice";
-import { useAppDispatch } from "app/GlobalStore/store";
-import React from "react";
+import { registrationService, sendUserRegistrationDetails } from "app/GlobalStore/Slices/RegisterSlice/RegisterSlice";
+import { useAppDispatch, useAppSelector } from "app/GlobalStore/store";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 const Registration = () => {
   const dispatch = useAppDispatch();
+  const navigate = useRouter();
+  const userRegistered = useAppSelector((state) => state.registerSlice.registrationService.userRegistered);
   const onRegistrationSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
@@ -22,8 +25,15 @@ const Registration = () => {
       addressProof: "address-proof",
     };
 
-    dispatch(sendUserRegistrationDetails(userEnteredRegObj));
+    dispatch(sendUserRegistrationDetails({ registerUser: userEnteredRegObj }));
+    dispatch(registrationService(userEnteredRegObj));
   };
+
+  useEffect(() => {
+    if (userRegistered) {
+      navigate.push("/login");
+    }
+  }, [userRegistered]);
 
   return (
     <div className="border border-slate-100 rounded-md shadow-md w-5/6 m-auto  py-4 px-6">

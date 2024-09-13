@@ -8,6 +8,8 @@ const mongoose = require("mongoose");
 
 const loginRoute = require("./routers/loginRoute.js");
 const registerRoute = require("./routers/registerRoute.js");
+const paymentRoute = require("./routers/paymentRoute.js");
+
 const { errorHandler } = require("./middlewares/errorMiddleware/errorHandler.js");
 const dbConnection = require("./DBConnection/mongooseConnection.js");
 
@@ -23,6 +25,7 @@ dbConnection();
 // ? Adding Routes Below
 app.use("/", loginRoute);
 app.use("/", registerRoute);
+app.use("/", paymentRoute);
 
 app.listen(process.env.BACKEND_SERVER_PORT, () => {
   console.log(`Karunakar Patel's backend server running on port ${process.env.BACKEND_SERVER_PORT}`);

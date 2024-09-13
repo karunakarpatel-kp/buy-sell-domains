@@ -14,7 +14,7 @@ const loginController = asyncHandler(async (req, res, next) => {
   const { userName, passWord } = req.body;
 
   if (!userName || !passWord) {
-    res.status(400);
+    res.status(401);
     let errorMsg = "All Fields are required";
     logger.error("All Fields are required");
     throw new Error(errorMsg);
@@ -23,7 +23,7 @@ const loginController = asyncHandler(async (req, res, next) => {
   const userNameFromDB = await registerUserModel.findOne({ userName });
 
   if (!userNameFromDB) {
-    res.status(400);
+    res.status(401);
     let msg = "Authentication Failed: There is no account associated with the userName";
     logger.error(msg);
     throw new Error(msg);
@@ -40,7 +40,7 @@ const loginController = asyncHandler(async (req, res, next) => {
 
   const token = jwt.sign({ userName: passWord }, process.env.JWT_SECRET_KEY, { expiresIn: "15m" });
 
-  res.send({
+  res.status(200).send({
     message: "User logged in successfully",
     userName,
     token,
