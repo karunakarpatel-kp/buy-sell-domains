@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const registerUserModel = require("../../models/registerUserModel");
 
 const registerController = asyncHandler(async (req, res, next) => {
-  const { userName, fullName, email, phoneNumber, passWord } = req.body;
+  const { userName, fullName, email, phoneNumber, passWord, user_role } = req.body;
 
   if (!userName || !fullName || !email || !phoneNumber || !passWord) {
     res.status(400);
@@ -47,6 +47,7 @@ const registerController = asyncHandler(async (req, res, next) => {
     email,
     phoneNumber,
     passWord: hashedPassword,
+    user_role,
   });
 
   const saveDataToDB = await finalUserRegObj.save();

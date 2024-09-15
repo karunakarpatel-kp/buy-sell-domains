@@ -1,6 +1,6 @@
 "use client";
-
 import { registrationService, sendUserRegistrationDetails } from "app/GlobalStore/Slices/RegisterSlice/RegisterSlice";
+import { sendNotificationToast } from "app/GlobalStore/Slices/UISlice/UISlice";
 import { useAppDispatch, useAppSelector } from "app/GlobalStore/store";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
@@ -13,6 +13,16 @@ const Registration = () => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
+    const buyerOrSeller = formData.get("buyer-or-seller");
+
+    if (buyerOrSeller === "None") {
+      dispatch(
+        sendNotificationToast({
+          Toast: { message: "Please Select the Option Value for Buyer or Seller", variant: "error" },
+        })
+      );
+      return;
+    }
 
     const userEnteredRegObj: any = {
       userName: formData.get("userName"),
@@ -118,9 +128,9 @@ const Registration = () => {
             id="select-buyer-seller"
             className="mt-1 px-3 py-2 bg-white border  border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md focus:ring-1"
           >
-            <option>None</option>
+            <option value="None">None</option>
             <option value="buyer">Buyer (Do you need to buy any product?)</option>
-            <option value={"seller"}>Seller (Do you need to sell any product)</option>
+            <option value="seller">Seller (Do you need to sell any product)</option>
           </select>
         </label>
 

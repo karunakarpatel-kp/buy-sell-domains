@@ -24,7 +24,7 @@ const RainfallAnimation = () => {
 
   return (
     showConfetti && (
-      <ReactConfetti width={width} height={height} numberOfPieces={1400} recycle={false} style={{ zIndex: 99999 }} />
+      <ReactConfetti width={width} height={height} numberOfPieces={1400} recycle={false} style={{ zIndex: 99999999 }} />
     )
   );
 };

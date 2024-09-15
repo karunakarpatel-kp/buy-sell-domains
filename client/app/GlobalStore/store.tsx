@@ -1,11 +1,12 @@
 "use client";
-
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import registerSlice from "./Slices/RegisterSlice/RegisterSlice";
 import loginSlice from "./Slices/LoginSlice/loginSlice";
 import UISlice from "./Slices/UISlice/UISlice";
 import rzPayOrderSlice from "./Slices/RazorPaySlice/rzPayOrderSlice";
+import addListingSlice from "./Slices/ListingSlice/addListingSlice";
+import getAllListingSlice from "./Slices/ListingSlice/getAllListingSlice";
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,8 @@ const store = configureStore({
     loginSlice: loginSlice,
     registerSlice: registerSlice,
     rzPayOrderSlice: rzPayOrderSlice,
+    addListingSlice: addListingSlice,
+    getAllListingSlice: getAllListingSlice,
     // UI Slice
     UISlice: UISlice,
   },

@@ -15,7 +15,7 @@ const CheckOut = () => {
     key: "", // Enter the Key ID generated from the Dashboard
     amount: "", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     currency: "",
-    name: "Acme Corp", // your business name
+    name: "Karunakar Patel Company", // your business name
     description: "Test Transaction",
     image: "https://example.com/your_logo",
     order_id: "", // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -48,7 +48,6 @@ const CheckOut = () => {
   }
 
   const onCheckOutClickHandler = (event: any) => {
-    console.log("CHECKOUT CLICKED");
     const rzp1 = new razorPay(options);
     rzp1.on("payment.failed", function (response: any) {
       alert(response.error.code);

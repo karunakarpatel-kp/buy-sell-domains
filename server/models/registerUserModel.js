@@ -6,6 +6,7 @@ const registerUserModel = mongoose.Schema({
   email: { type: String, unique: true, required: true },
   phoneNumber: { type: String, unique: true, required: true },
   passWord: { type: String, required: true },
+  user_role: { type: String, required: true },
 });
 
 module.exports = mongoose.model("registerUserModel", registerUserModel);

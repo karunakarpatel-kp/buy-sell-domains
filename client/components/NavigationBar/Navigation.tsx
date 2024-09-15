@@ -55,6 +55,7 @@ const Navigation = () => {
   const onLogOutClickHandler = () => {
     dispatch(logOutUser());
     dispatch(sendNotificationToast({ Toast: { message: "User Logged Out Successfully", variant: "info" } }));
+    navigate.push("/");
   };
 
   const loginClassName = `text-white no-underline border border-slate-300 rounded-sm  px-2 ${
