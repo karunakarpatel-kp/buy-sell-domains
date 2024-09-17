@@ -8,6 +8,12 @@ interface initialStateProps {
     paymentOrder: any;
     paymentOrderStatus: "PENDING" | "FULFILLED" | "REJECTED";
   };
+  rzPaymentSuccess: {
+    razorpay_payment_id: string;
+    razorpay_order_id: string;
+    razorpay_signature: string;
+  };
+  rzPaymentFailure: any;
 }
 
 const initialState: initialStateProps = {
@@ -15,6 +21,12 @@ const initialState: initialStateProps = {
     paymentOrder: null,
     paymentOrderStatus: "PENDING",
   },
+  rzPaymentSuccess: {
+    razorpay_order_id: "",
+    razorpay_signature: "",
+    razorpay_payment_id: "",
+  },
+  rzPaymentFailure: null,
 };
 
 export const createRZPayOrder = createAsyncThunk("createOrder", async (incomingObj: any, thunkAPI) => {
@@ -33,7 +45,6 @@ export const createRZPayOrder = createAsyncThunk("createOrder", async (incomingO
     const data = await resP.data;
     thunkAPI.dispatch(sendNotificationToast({ Toast: { message: "Order created successfully", variant: "success" } }));
     thunkAPI.dispatch(sendConfetti(true));
-    console.log({ razorPayData: data });
     return data;
   } catch (err: any) {
     return err.resP.data;
@@ -44,6 +55,17 @@ const rzPayOrderSlice = createSlice({
   name: "payment-slice",
   initialState,
   reducers: {
+    sendrzPaymentSuccessDetails: (
+      state,
+      action: PayloadAction<{ razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }>
+    ) => {
+      state.rzPaymentSuccess.razorpay_order_id = action.payload.razorpay_order_id;
+      state.rzPaymentSuccess.razorpay_payment_id = action.payload.razorpay_payment_id;
+      state.rzPaymentSuccess.razorpay_signature = action.payload.razorpay_signature;
+    },
+    sendrzPaymentFailureDetails: (state, action: PayloadAction<any>) => {
+      state.rzPaymentFailure = action.payload;
+    },
     clearPaymentOrder: (state: any, action: PayloadAction<any>) => {
       state.rzPayOrder.paymentOrder = null;
       state.rzPayOrder.paymentOrderStatus = "PENDING";
@@ -52,6 +74,7 @@ const rzPayOrderSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(createRZPayOrder.pending, (state, action) => {
       state.rzPayOrder.paymentOrderStatus = "PENDING";
+      state.rzPayOrder.paymentOrder = null;
     });
     builder.addCase(createRZPayOrder.fulfilled, (state, action) => {
       state.rzPayOrder.paymentOrderStatus = "FULFILLED";
@@ -59,10 +82,11 @@ const rzPayOrderSlice = createSlice({
     });
     builder.addCase(createRZPayOrder.rejected, (state, action) => {
       state.rzPayOrder.paymentOrderStatus = "REJECTED";
+      state.rzPayOrder.paymentOrder = null;
     });
   },
 });
 
-export const { clearPaymentOrder } = rzPayOrderSlice.actions;
+export const { clearPaymentOrder, sendrzPaymentSuccessDetails, sendrzPaymentFailureDetails } = rzPayOrderSlice.actions;
 
 export default rzPayOrderSlice.reducer;

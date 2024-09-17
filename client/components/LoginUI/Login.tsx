@@ -1,6 +1,7 @@
 "use client";
 import { loginUserService, sendLoginUserCred } from "app/GlobalStore/Slices/LoginSlice/loginSlice";
 import { sendNotificationToast } from "app/GlobalStore/Slices/UISlice/UISlice";
+import { getUserDetailsService } from "app/GlobalStore/Slices/UserDetailsSlice/userDetailSlice";
 import { useAppDispatch, useAppSelector } from "app/GlobalStore/store";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -9,6 +10,7 @@ import React, { useEffect } from "react";
 const Login = () => {
   const dispatch = useAppDispatch();
   const loginUserServiceStatus = useAppSelector((state) => state.loginSlice.loginServiceState.loginUserServiceStatus);
+  const loginUserServiceData = useAppSelector((state) => state.loginSlice.loginServiceState.loginUserServiceData);
   const navigate = useRouter();
 
   const onFormSubmit = (event: any) => {
@@ -25,6 +27,8 @@ const Login = () => {
 
   useEffect(() => {
     if (loginUserServiceStatus === "FULLFILLED") {
+      const loginToken = loginUserServiceData.token;
+      dispatch(getUserDetailsService(loginToken));
       navigate.push("/");
     }
   }, [loginUserServiceStatus]);

@@ -6,16 +6,18 @@ import React, { useEffect } from "react";
 import { FaArrowRight, FaSadTear } from "react-icons/fa";
 
 const SellingCard = () => {
-  const rzPaymentOrder = useAppSelector((state) => state.rzPayOrderSlice.rzPayOrder.paymentOrder);
-  let soldOut = false;
   const dispatch = useAppDispatch();
   const navigate = useRouter();
+  const rzPaymentOrder = useAppSelector((state) => state.rzPayOrderSlice.rzPayOrder.paymentOrder);
+  let soldOut = false;
+  const userSelectedListing = useAppSelector((state) => state.addListingSlice.userSelectedList);
+  const userNameFromLogin = useAppSelector((state) => state.loginSlice.loginServiceState.loginUserServiceData);
 
   const onBuyNowClickHandler = () => {
     const orderCartObj = {
-      amount: 5000,
+      amount: userSelectedListing[0].sellingPrice,
       currency: "INR",
-      receipt: "Karna1",
+      receipt: userNameFromLogin !== null ? userNameFromLogin.userName : "",
     };
     dispatch(createRZPayOrder(orderCartObj));
   };
@@ -38,41 +40,31 @@ const SellingCard = () => {
 
       <div className="mt-2">
         {soldOut ? (
-          <Link
-            href="/cars"
-            className="no-underline flex justify-center items-center text-xl bg-brandColor text-white p-2 px-6 rounded-lg hover:bg-white  hover:text-[#36106a] hover:ease-in-out border hover:border-brandColor "
-          >
+          <button className="no-underline w-full flex justify-center items-center text-xl bg-brandColor text-white p-2 px-6 rounded-lg hover:bg-white  hover:text-[#36106a] hover:ease-in-out border hover:border-brandColor ">
             Sold Out
             <FaSadTear fontSize="medium" className="ml-2 hover:text-[#36106a]" />
-          </Link>
+          </button>
         ) : (
-          <Link
-            href="/websites/first-website"
-            className="no-underline flex justify-center items-center text-xl bg-white  text-[#36106a] hover:ease-in-out border border-brandColor p-2 px-6 rounded-lg hover:bg-brandColor hover:text-white"
-          >
+          <button className="no-underline w-full flex justify-center items-center text-xl bg-white  text-[#36106a] hover:ease-in-out border border-brandColor p-2 px-6 rounded-lg hover:bg-brandColor hover:text-white">
             Contact Suraj Sharma
             <FaArrowRight fontSize="medium" className="ml-2 hover:text-[#36106a] " />
-          </Link>
+          </button>
         )}
         <div className="mt-4">
-          <Link
-            href="/websites/first-website"
-            className="no-underline flex justify-center items-center text-xl bg-brandColor  text-white hover:bg-white  hover:text-[#36106a] hover:ease-in-out border hover:border-brandColor p-2 px-6 rounded-lg"
-          >
+          <button className="no-underline w-full flex justify-center items-center text-xl bg-brandColor  text-white hover:bg-white  hover:text-[#36106a] hover:ease-in-out border hover:border-brandColor p-2 px-6 rounded-lg">
             Contact Via WhatsApp
             <FaArrowRight fontSize="medium" className="ml-2 hover:text-[#36106a] " />
-          </Link>
+          </button>
         </div>
 
         <div className="mt-4">
-          <Link
-            href="/websites/first-website"
-            className="no-underline flex justify-center items-center text-xl bg-brandColor  text-white hover:bg-white  hover:text-[#36106a] hover:ease-in-out border hover:border-brandColor p-2 px-6 rounded-lg"
+          <button
+            className="no-underline flex w-full justify-center items-center text-xl bg-brandColor  text-white hover:bg-white  hover:text-[#36106a] hover:ease-in-out border hover:border-brandColor p-2 px-6 rounded-lg"
             onClick={onBuyNowClickHandler}
           >
             Buy Now
             <FaArrowRight fontSize="medium" className="ml-2 hover:text-[#36106a]  animate-pulse" />
-          </Link>
+          </button>
         </div>
       </div>
     </div>

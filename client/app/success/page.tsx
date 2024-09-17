@@ -1,7 +1,7 @@
 import RainfallAnimation from "@Components/Animations/RainfallAnimation";
-import CheckOut from "@Components/CheckOutUI/CheckOut";
 import ListingCard from "@Components/ListingCards/ListingCard";
 import Registration from "@Components/RegistrationUI/Registration";
+import SuccessUI from "@Components/Success/SuccessUI";
 import { blogPostsObj } from "Essential";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -13,13 +13,14 @@ export const metadata: Metadata = {
   description: "This is the Basic Description for the Websites Page",
 };
 
-const CheckOutPage = () => {
+const SuccessPage = () => {
   return (
     <div className="mt-20 min-h-[65vh]">
-      <h1 className="font-semibold px-3 text-center pt-4 border-b border-b-slate-100 pb-4">Checkout Page</h1>
-      <CheckOut />
+      <RainfallAnimation />
+      <h1 className="font-semibold px-3 text-center pt-4 border-b border-b-slate-100 pb-4">Success Page</h1>
+      <SuccessUI />
     </div>
   );
 };
 
-export default CheckOutPage;
+export default SuccessPage;

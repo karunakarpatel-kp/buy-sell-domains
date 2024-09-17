@@ -7,6 +7,7 @@ import UISlice from "./Slices/UISlice/UISlice";
 import rzPayOrderSlice from "./Slices/RazorPaySlice/rzPayOrderSlice";
 import addListingSlice from "./Slices/ListingSlice/addListingSlice";
 import getAllListingSlice from "./Slices/ListingSlice/getAllListingSlice";
+import userDetailSlice from "./Slices/UserDetailsSlice/userDetailSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     rzPayOrderSlice: rzPayOrderSlice,
     addListingSlice: addListingSlice,
     getAllListingSlice: getAllListingSlice,
+    userDetailSlice: userDetailSlice,
     // UI Slice
     UISlice: UISlice,
   },

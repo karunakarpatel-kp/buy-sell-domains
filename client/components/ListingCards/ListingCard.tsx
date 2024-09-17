@@ -69,13 +69,10 @@ const ListingCard = (props: any) => {
           <div className="text-3xl font-bold my-4 lg:my-0">{sellingPrice}</div>
           <div className="">
             {soldOut ? (
-              <Link
-                href="/cars"
-                className="no-underline flex justify-center items-center text-xl bg-brandColor text-white p-2 px-6 mx-3 rounded-lg hover:bg-white  hover:text-[#36106a] hover:ease-in-out border hover:border-brandColor  dark:hover:bg-slate-900 dark:hover:text-white dark:hover:border-white dark:bg-slate-900 opacity-50 cursor-not-allowed"
-              >
+              <button className="no-underline flex justify-center items-center text-xl bg-brandColor text-white p-2 px-6 mx-3 rounded-lg hover:bg-white  hover:text-[#36106a] hover:ease-in-out border hover:border-brandColor  dark:hover:bg-slate-900 dark:hover:text-white dark:hover:border-white dark:bg-slate-900 opacity-50 cursor-not-allowed">
                 Sold Out
                 <FaSadTear fontSize="medium" className="ml-2 hover:text-[#36106a]" />
-              </Link>
+              </button>
             ) : (
               <>
                 <button

@@ -14,6 +14,8 @@ import { MdAppRegistration, MdLogin } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "app/GlobalStore/store";
 import { logOutUser } from "app/GlobalStore/Slices/LoginSlice/loginSlice";
 import { sendNotificationToast } from "app/GlobalStore/Slices/UISlice/UISlice";
+import { clearPaymentOrder } from "app/GlobalStore/Slices/RazorPaySlice/rzPayOrderSlice";
+import { clearUserDetailsService } from "app/GlobalStore/Slices/UserDetailsSlice/userDetailSlice";
 
 const Navigation = () => {
   const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
@@ -38,6 +40,8 @@ const Navigation = () => {
 
   const onLogoClickHandler = () => {
     navigate.push("/");
+    // On Logo CLick clear out the Payment Order
+    dispatch(clearPaymentOrder({}));
   };
 
   useEffect(() => {
@@ -54,6 +58,8 @@ const Navigation = () => {
 
   const onLogOutClickHandler = () => {
     dispatch(logOutUser());
+    dispatch(clearPaymentOrder({}));
+    dispatch(clearUserDetailsService({}));
     dispatch(sendNotificationToast({ Toast: { message: "User Logged Out Successfully", variant: "info" } }));
     navigate.push("/");
   };

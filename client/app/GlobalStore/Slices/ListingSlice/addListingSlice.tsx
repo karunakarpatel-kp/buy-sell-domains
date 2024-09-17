@@ -33,6 +33,7 @@ interface addListingServiceProps {
     addListingServiceStatus: "PENDING" | "FULFILLED" | "REJECTED";
     addListingServiceData: any;
   };
+  userSelectedList: any;
 }
 
 const initialState: addListingServiceProps = {
@@ -67,6 +68,7 @@ const initialState: addListingServiceProps = {
     addListingServiceStatus: "PENDING",
     addListingServiceData: null,
   },
+  userSelectedList: null,
 };
 
 export const addListingService = createAsyncThunk("addListingService", async (incomingObj, thunkAPI) => {
@@ -92,7 +94,11 @@ export const addListingService = createAsyncThunk("addListingService", async (in
 const addListingSlice = createSlice({
   name: "addListingSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    sendUserSelectedList: (state, action: PayloadAction<any>) => {
+      state.userSelectedList = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(addListingService.pending, (state, action) => {
       state.addListingService.addListingServiceStatus = "PENDING";
@@ -108,5 +114,7 @@ const addListingSlice = createSlice({
     });
   },
 });
+
+export const { sendUserSelectedList } = addListingSlice.actions;
 
 export default addListingSlice.reducer;
