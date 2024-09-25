@@ -31,7 +31,9 @@ const SellingCard = () => {
   return (
     <div className="flex flex-col  justify-between   border border-slate-300 shadow-sm p-2 px-8 py-4">
       <div className="text-2xl font-semibold mb-4">Selling Price</div>
-      <div className="text-3xl font-bold mb-4">₹ 40,000</div>
+      <div className="text-3xl font-bold mb-4">
+        {userSelectedListing !== null && userSelectedListing[0].domainSellingPrice}
+      </div>
       <span className="border border-brandColor border-dotted w-3/4 my-2 m-auto"></span>
 
       <div className="text-2xl font-semibold mb-4">Suraj Commission</div>

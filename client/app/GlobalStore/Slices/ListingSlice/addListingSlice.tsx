@@ -1,34 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { sendNotificationToast } from "../UISlice/UISlice";
 
 interface addListingServiceProps {
-  id: string;
-  soldOut: boolean;
-  websiteURL: string;
-  title: string;
-  listDescription: string;
-  category: string;
-  registrationDate: string;
-  monetization: string;
-  monthlyIncome: string;
-  sellingPrice: string;
-  pageDescripton: string;
-  pinVerified: string;
-  paymentReceived: string;
-  websiteName: string;
-  websiteType: string;
-  websiteStartingDate: string;
-  domainRenewalDate: string;
-  keywords: string;
-  platForm: string;
-  imagesForProof: string[];
-  aboutWebsite: string;
-  monetizationPlatform: string;
-  siteMonetizationDate: string;
-  monetizationCountry: string;
-  expectedMonthlyTraffic: string;
-  last1MonthEarning: string;
-  last6MonthEarning: string;
   addListingService: {
     addListingServiceStatus: "PENDING" | "FULFILLED" | "REJECTED";
     addListingServiceData: any;
@@ -37,33 +11,6 @@ interface addListingServiceProps {
 }
 
 const initialState: addListingServiceProps = {
-  id: "",
-  soldOut: false,
-  websiteURL: "",
-  title: "",
-  listDescription: "",
-  category: "",
-  registrationDate: "",
-  monetization: "",
-  monthlyIncome: "",
-  sellingPrice: "",
-  pageDescripton: "",
-  pinVerified: "",
-  paymentReceived: "",
-  websiteName: "",
-  websiteType: "",
-  websiteStartingDate: "",
-  domainRenewalDate: "",
-  keywords: "",
-  platForm: "",
-  imagesForProof: [""],
-  aboutWebsite: "",
-  monetizationPlatform: "",
-  siteMonetizationDate: "",
-  monetizationCountry: "",
-  expectedMonthlyTraffic: "",
-  last1MonthEarning: "",
-  last6MonthEarning: "",
   addListingService: {
     addListingServiceStatus: "PENDING",
     addListingServiceData: null,
@@ -71,7 +18,7 @@ const initialState: addListingServiceProps = {
   userSelectedList: null,
 };
 
-export const addListingService = createAsyncThunk("addListingService", async (incomingObj, thunkAPI) => {
+export const addListingService = createAsyncThunk("addListingService", async (incomingObj: any, thunkAPI) => {
   const data = JSON.stringify(incomingObj);
   const config = {
     url: "http://localhost:5050/add-listing",
@@ -85,8 +32,10 @@ export const addListingService = createAsyncThunk("addListingService", async (in
   try {
     const resP = await axios(config);
     const dataResp = await resP.data;
+    thunkAPI.dispatch(sendNotificationToast({ Toast: { message: dataResp.message, variant: "success" } }));
     return dataResp;
   } catch (err: any) {
+    thunkAPI.dispatch(sendNotificationToast({ Toast: { message: err.response.data.message, variant: "error" } }));
     return err.response.message;
   }
 });

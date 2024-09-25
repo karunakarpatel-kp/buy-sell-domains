@@ -1,6 +1,6 @@
-import AddListingUI from "@Components/ListingCards/AddListingUI";
 import { Metadata } from "next";
 import React from "react";
+import AddListingUI from "@Components/ListingCards/AddListingUI";
 
 export const metadata: Metadata = {
   title: "Websites List",

@@ -24,59 +24,58 @@ const AddListingUI = () => {
 
     const userEnteredAddListingObj = {
       id: uuidv4(),
-      websiteURL: formData.get("websiteURL"),
       soldOut: false,
+      fullName: formData.get("fullName"),
+      email: formData.get("email"),
+      phoneNumber: formData.get("phoneNumber"),
       title: formData.get("title"),
-      listDescription: formData.get("shortDescription"),
-      category: formData.get("websiteCategory"),
-      registrationDate: formData.get("websiteRegistrationDate"),
-      pageDescripton: formData.get("detailDescription"),
-      pinVerified: formData.get("pinVerified"),
-      paymentReceived: formData.get("paymentReceived"),
+      shortDescription: formData.get("shortDescription"),
+      detailDescription: formData.get("detailDescription"),
+      websiteURL: formData.get("websiteURL"),
+      websiteRegistrationDate: formData.get("websiteRegistrationDate"),
       websiteName: formData.get("websiteName"),
-      websiteStartingDate: formData.get("websiteRegistrationDate"),
+      websiteCategory: formData.get("websiteCategory"),
+      websitePlatform: formData.get("websitePlatform"),
+      domainSeller: formData.get("domainSeller"),
+      domainRegistrationDate: formData.get("domainRegistrationDate"),
       domainRenewalDate: formData.get("domainRenewalDate"),
-      platForm: formData.get("platformName"),
-      monetizationPlatform: formData.get("monetizedPlatform"),
-      expectedMonthlyTraffic: formData.get("monthlyTraffic"),
-      last1MonthEarning: formData.get("lastOneMonthEarning"),
-      last6MonthEarning: formData.get("lastSixMonthEarning"),
-      // Final Obj
-      monetization: "Google Adsense",
-      websiteType: "Monetized Website",
-      keywords: "Google, Karunakar Patel",
-      siteMonetizationDate: "05/05/2024",
-      monetizationCountry: "India",
-      monthlyIncome: 20000,
-      sellingPrice: 400000,
-      imagesForProof: ["images", "image second"],
-      aboutWebsite: "Google Adsense Approved Pin Verified 57$ Balance",
-      monetized: formData.get("monetized"),
+      domainKeywords: formData.get("domainKeywords"),
+      hostingPlatform: formData.get("hostingPlatform"),
+      isWebsiteMonetized: formData.get("isWebsiteMonetized"),
+      monetizationPlatform: formData.get("monetizationPlatform"),
+      websiteMonetizationDate: formData.get("websiteMonetizationDate"),
+      monetizationCountry: formData.get("monetizationCountry"),
+      pinVerified: formData.get("pinVerified"),
+      lastMonthTraffic: formData.get("lastMonthTraffic"),
+      lastSixMonthTraffic: formData.get("lastSixMonthTraffic"),
+      lastMonthEarnings: formData.get("lastMonthEarnings"),
+      paymentReceived: formData.get("paymentReceived"),
+      lastSixMonthEarnings: formData.get("lastSixMonthEarnings"),
+      domainSellingPrice: formData.get("domainSellingPrice"),
     };
 
-    // dispatch(addListingService(userEnteredAddListingObj))
-    dispatch(
-      sendNotificationToast({ Toast: { message: "You have added your product successfully", variant: "success" } })
-    );
+    dispatch(addListingService(userEnteredAddListingObj));
+
     navigate.push("/");
   };
   return (
     <>
       <form onSubmit={onFormSubmit} name="login-form" id="addListingForm">
-        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap">
+        {/* Basic Details */}
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3">
           <div className="w-full">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-                First Name
+                Full Name
               </span>
               <input
                 type="text"
-                alt="FirstName"
-                name="FirstName"
-                title="FirstName"
+                alt="Full Name"
+                name="fullName"
+                title="Full Name"
                 autoComplete="false"
                 required
-                placeholder="Please Enter FirstName"
+                placeholder="Please Enter Full Name"
                 className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
               />
             </label>
@@ -84,83 +83,92 @@ const AddListingUI = () => {
           <div className="w-full">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-                Last Name
+                Email
               </span>
               <input
-                type="text"
-                alt="lastName"
-                name="title"
-                title="Last Name"
+                type="email"
+                alt="email"
+                name="email"
+                title="Email "
                 autoComplete="false"
                 required
-                placeholder="Please Enter LastName"
+                placeholder="Please Enter Your Email Address"
+                className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
+              />
+            </label>
+          </div>
+          <div className="w-full">
+            <label className="block">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
+                Phone Number
+              </span>
+              <input
+                type="number"
+                alt="phoneNumber"
+                name="phoneNumber"
+                title="phoneNumber"
+                autoComplete="false"
+                required
+                placeholder="Please Enter Your Phone Number"
                 className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
               />
             </label>
           </div>
         </div>
-        <label className="block">
-          <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-            Title
-          </span>
-          <input
-            type="text"
-            alt="Title"
-            name="title"
-            title="Title"
-            autoComplete="false"
-            required
-            placeholder="Please Enter Title"
-            className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
-          />
-        </label>
 
-        <label className="block">
-          <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-            Short Description
-          </span>
-          <textarea
-            name="shorDescription"
-            title="Short Description"
-            autoComplete="false"
-            required
-            placeholder="Please Enter Short Description"
-            className="resize-y mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
-          ></textarea>
-        </label>
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
+          <label className="w-full">
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
+              Title
+            </span>
+            <input
+              type="text"
+              alt="Title"
+              name="title"
+              title="Title"
+              autoComplete="false"
+              required
+              placeholder="Please Enter Title"
+              className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
+            />
+          </label>
+        </div>
+        {/* description */}
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
+          <label className="w-full">
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
+              Short Description
+            </span>
+            <textarea
+              name="shortDescription"
+              title="Short Description"
+              autoComplete="false"
+              required
+              placeholder="Please Enter Short Description"
+              className="resize-y mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
+            ></textarea>
+          </label>
+        </div>
 
-        <label className="block">
-          <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-            Detail Description
-          </span>
-          <textarea
-            name="detailDescription"
-            title="Detail Description"
-            autoComplete="false"
-            required
-            placeholder="Please Enter Detail Description"
-            className="resize-y mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1 h-48"
-          ></textarea>
-        </label>
+        {/* detail Description */}
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
+          <label className="w-full">
+            <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
+              Detail Description
+            </span>
+            <textarea
+              name="detailDescription"
+              title="Detail Description"
+              autoComplete="false"
+              required
+              placeholder="Please Enter Detail Description"
+              className="resize-y mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1 h-48"
+            ></textarea>
+          </label>
+        </div>
 
-        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap">
-          <div className="w-full">
-            <label className="block">
-              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-                Website Name
-              </span>
-              <input
-                type="text"
-                alt="Website Name"
-                name="websiteName"
-                title="Website Name"
-                autoComplete="false"
-                required
-                placeholder="Please Enter Website Name"
-                className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
-              />
-            </label>
-          </div>
+        {/* Website Details */}
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
           <div className="w-full">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
@@ -172,6 +180,7 @@ const AddListingUI = () => {
                 name="websiteURL"
                 title="Website URL"
                 autoComplete="false"
+                defaultValue={"https://"}
                 required
                 placeholder="Please Enter Website URL"
                 className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
@@ -196,10 +205,28 @@ const AddListingUI = () => {
               />
             </label>
           </div>
-        </div>
-        {/*  */}
 
-        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap">
+          <div className="w-full">
+            <label className="block">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
+                Website Name
+              </span>
+              <input
+                type="text"
+                alt="Website Name"
+                name="websiteName"
+                title="Website Name"
+                autoComplete="false"
+                required
+                placeholder="Please Enter Website Name"
+                className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
+              />
+            </label>
+          </div>
+        </div>
+
+        {/* Website Category & Platform */}
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
           <div className="w-full">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
@@ -220,13 +247,13 @@ const AddListingUI = () => {
           <div className="w-full">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-                Platform Name
+                Website Platform
               </span>
               <input
                 type="text"
-                alt="Platform Name"
-                name="platformName"
-                title="Platform Name"
+                alt="Website Platform"
+                name="websitePlatform"
+                title="Website Platform"
                 autoComplete="false"
                 required
                 placeholder="Wordpress / wix / custom"
@@ -236,7 +263,43 @@ const AddListingUI = () => {
           </div>
         </div>
 
-        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap">
+        {/* Domain Details  */}
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
+          <div className="w-full">
+            <label className="block">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
+                Domain Seller
+              </span>
+              <input
+                type="text"
+                alt="Domain Seller"
+                name="domainSeller"
+                title="Domain Seller"
+                autoComplete="false"
+                required
+                placeholder="Godaddy or Hostinger etc..."
+                className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
+              />
+            </label>
+          </div>
+
+          <div className="w-full">
+            <label className="block">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
+                Domain Registration Date
+              </span>
+              <input
+                type="date"
+                alt="Domain Registration Date"
+                name="domainRegistrationDate"
+                title="Domain Registration Date"
+                autoComplete="false"
+                required
+                placeholder="Domain Registration Date"
+                className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
+              />
+            </label>
+          </div>
           <div className="w-full">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
@@ -244,25 +307,67 @@ const AddListingUI = () => {
               </span>
               <input
                 type="date"
-                alt="Website Renewal Date"
+                alt="Domain Renewal Date"
                 name="domainRenewalDate"
                 title="Domain Renewal Date"
                 autoComplete="false"
                 required
-                placeholder="Please Enter Domain Renewal Date"
+                placeholder="Domain Renewal Date"
+                className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
+              />
+            </label>
+          </div>
+        </div>
+
+        {/* domainKeywords, hostingPlatform */}
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
+          <div className="w-full">
+            <label className="block">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
+                Domain Keywords
+              </span>
+              <input
+                type="text"
+                alt="Domain Keywords"
+                name="domainKeywords"
+                title="Domain Keywords"
+                autoComplete="false"
+                required
+                placeholder="Please Enter Domain Keywords"
                 className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
               />
             </label>
           </div>
 
           <div className="w-full">
+            <label className="block">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
+                Hosting Platform
+              </span>
+              <input
+                type="text"
+                alt="Hosting Platform"
+                name="hostingPlatform"
+                title="Hosting Platform"
+                autoComplete="false"
+                required
+                placeholder=" Hostinger, Godaddy etc..."
+                className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
+              />
+            </label>
+          </div>
+        </div>
+
+        {/* Google Adsense */}
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
+          <div className="w-full">
             <label className="block mt-3" htmlFor="select-buyer-seller">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1">
-                Monetized?
+                Is Website Monetized?
               </span>
               <select
                 required
-                name="monetized"
+                name="isWebsiteMonetized"
                 id="monetized"
                 className="mt-1 px-3 py-2 bg-white border  border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md focus:ring-1"
               >
@@ -276,13 +381,13 @@ const AddListingUI = () => {
           <div className="w-full">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-                Monetized Platform
+                Monetization Platform
               </span>
               <input
                 type="text"
-                alt="Monetized Platform"
-                name="monetizedPlatform"
-                title="Monetized Platform"
+                alt="Monetization Platform"
+                name="monetizationPlatform"
+                title="Monetization Platform"
                 autoComplete="false"
                 required
                 placeholder=" Google Adsense / other"
@@ -290,19 +395,78 @@ const AddListingUI = () => {
               />
             </label>
           </div>
+
+          <div className="w-full">
+            <label className="block">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
+                Website Monetization Date
+              </span>
+              <input
+                type="date"
+                alt="Website Monetization Date"
+                name="websiteMonetizationDate"
+                title="Website Monetization Date"
+                autoComplete="false"
+                required
+                placeholder=" Please Enter Website Monetization Date"
+                className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
+              />
+            </label>
+          </div>
         </div>
 
-        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap">
+        {/* Monetization country and pin Verified */}
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
           <div className="w-full">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-                Monthly Traffic
+                Monetization Country
+              </span>
+              <input
+                type="text"
+                alt="Monetization Country"
+                name="monetizationCountry"
+                title="Monetization Country"
+                autoComplete="false"
+                required
+                placeholder=" India / USA etc..."
+                className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
+              />
+            </label>
+          </div>
+
+          <div className="w-full">
+            <label className="block mt-3" htmlFor="select-buyer-seller">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1">
+                Pin Verified
+              </span>
+              <select
+                required
+                name="pinVerified"
+                id="pinVerified"
+                className="mt-1 px-3 py-2 bg-white border  border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md focus:ring-1"
+              >
+                <option value="None">None</option>
+                <option value="buyer">Yes</option>
+                <option value="seller">No</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        {/*  Traffic */}
+
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
+          <div className="w-full">
+            <label className="block">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
+                Last Month Traffic
               </span>
               <input
                 type="number"
-                alt="Monthly Traffic"
-                name="monthlyTraffic"
-                title="Monthly Traffic"
+                alt="Last Month Traffic"
+                name="lastMonthTraffic"
+                title="Last Month traffic"
                 autoComplete="false"
                 required
                 placeholder="50k or 100k"
@@ -314,31 +478,35 @@ const AddListingUI = () => {
           <div className="w-full">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-                Last 1 Month Earnings
+                Last 6 Month Traffic
               </span>
               <input
                 type="number"
-                alt="last 1 Month Earning"
-                name="lastOneMonthEarning "
-                title="Last 1 Month Earning"
+                alt="last 6 Month Traffic"
+                name="lastSixMonthTraffic"
+                title="Last 6 Month Traffic"
                 autoComplete="false"
                 required
-                placeholder="50k or 100k"
+                placeholder="500k or 1000k"
                 className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
               />
             </label>
           </div>
+        </div>
 
+        {/* Earnings */}
+
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
           <div className="w-full">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-                Last 6 Month Earnings
+                Last Month Earnings
               </span>
               <input
                 type="number"
-                alt="last 6 Month Earning"
-                name="lastSixMonthEarning"
-                title="Last 6 Month Earning"
+                alt="last Month Earnings"
+                name="lastMonthEarnings"
+                title="Last Month Earning"
                 autoComplete="false"
                 required
                 placeholder="1000k or 20000k"
@@ -346,9 +514,6 @@ const AddListingUI = () => {
               />
             </label>
           </div>
-        </div>
-
-        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap">
           <div className="w-full">
             <label className="block mt-3" htmlFor="select-buyer-seller">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1">
@@ -366,38 +531,39 @@ const AddListingUI = () => {
               </select>
             </label>
           </div>
-
-          <div className="w-full">
-            <label className="block mt-3" htmlFor="select-buyer-seller">
-              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1">
-                Pin Verified?
-              </span>
-              <select
-                required
-                name="pinVerified"
-                id="pin-verified"
-                className="mt-1 px-3 py-2 bg-white border  border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md focus:ring-1"
-              >
-                <option value="None">None</option>
-                <option value="buyer">Yes</option>
-                <option value="seller">No</option>
-              </select>
-            </label>
-          </div>
-
           <div className="w-full">
             <label className="block">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3">
-                Website Moentization Date
+                Last 6 Month Earnings
               </span>
               <input
-                type="date"
-                alt="Website Monetization Date"
-                name="Website Monetization Date"
-                title="Website Monetization Date"
+                type="number"
+                alt="last 6 Month Earnings"
+                name="lastSixMonthEarnings"
+                title="Last Six Month Earnings"
                 autoComplete="false"
                 required
-                placeholder="Please Enter Website Monetization Date"
+                placeholder="1000k or 20000k"
+                className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
+              />
+            </label>
+          </div>
+        </div>
+
+        <div className="flex flex-row gap-3 w-full flex-wrap md:flex-nowrap lg:flex-nowrap bg-slate-50 p-3 mt-2">
+          <div className="w-full">
+            <label className="block">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3 text-xl">
+                Domain Selling Price
+              </span>
+              <input
+                type="number"
+                alt="Domain Selling Price (In INR)"
+                name="domainSellingPrice"
+                title="Domain Selling Price (In Rupees)"
+                autoComplete="false"
+                required
+                placeholder="100 or 20000 Rupees"
                 className="mt-1 px-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md  focus:ring-1"
               />
             </label>
