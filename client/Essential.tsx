@@ -43,9 +43,9 @@ interface Base_Url_Props {
 }
 
 export const BASE_URLS: Base_Url_Props = {
-  HOME_PAGE_BASE_URL: process.env.HOME_PAGE_BASE_URL!,
-  CARS_PAGE_BASE_URL: `${process.env.HOME_PAGE_BASE_URL}/cars`,
-  TATA_PAGE_BASE_URL: `${process.env.HOME_PAGE_BASE_URL}/cars/tata`,
+  HOME_PAGE_BASE_URL: process.env.NEXT_PUBLIC_HOME_PAGE_BASE_URL!,
+  CARS_PAGE_BASE_URL: `${process.env.NEXT_PUBLIC_HOME_PAGE_BASE_URL}/cars`,
+  TATA_PAGE_BASE_URL: `${process.env.NEXT_PUBLIC_HOME_PAGE_BASE_URL}/cars/tata`,
   // KIA_PAGE_BASE_URL: "https://www.vehiclemasti.com/cars/kia",
 };
 

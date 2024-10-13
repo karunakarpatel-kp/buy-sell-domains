@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { sendConfetti, sendNotificationToast } from "../UISlice/UISlice";
+import axiosInstance from "app/axiosInstance";
 
 interface loginSliceInitialProps {
   userName: string;
@@ -33,7 +34,7 @@ export const loginUserService = createAsyncThunk(
     let data = JSON.stringify(incomingObj);
     let config = {
       method: "post",
-      url: `http://localhost:5050/login`,
+      // url: `http://localhost:5050/login`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -41,7 +42,7 @@ export const loginUserService = createAsyncThunk(
     };
 
     try {
-      const resp = await axios(config);
+      const resp = await axiosInstance("/login", config);
       const respData = await resp.data;
       thunkAPI.dispatch(sendNotificationToast({ Toast: { message: resp.data.message, variant: "success" } }));
       thunkAPI.dispatch(sendConfetti(true));

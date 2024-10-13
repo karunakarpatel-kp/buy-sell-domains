@@ -5,6 +5,8 @@ import Footer from "@Components/Footer/Footer";
 import { MdLightMode } from "react-icons/md";
 import GlobalProvider from "./GlobalStore/globalProvider";
 import Script from "next/script";
+import ReadingProgressBar from "@Components/ProgressBar/ReadingProgressBar";
+import LoadingProgressBar from "@Components/ProgressBar/LoadingProgressBar";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -23,6 +25,7 @@ const RootLayout = (props: RootLayoutProps) => {
         <GlobalProvider>
           <header className="dark:bg-slate-900">
             <Navigation />
+            <LoadingProgressBar />
           </header>
           <main className="border-0 border-red-900 grid grid-cols-12">
             <section className="hidden md:invisible md:block md:col-span-1 border-2 border-green-800">One</section>
@@ -43,6 +46,7 @@ const RootLayout = (props: RootLayoutProps) => {
         <footer>
           <Footer />
         </footer>
+        <ReadingProgressBar />
       </body>
     </html>
   );

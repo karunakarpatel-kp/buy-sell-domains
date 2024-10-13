@@ -1,0 +1,13 @@
+Registration Page.
+  - Need to collect the Government ID from the User.
+  - An API to receive the Image from Node.js.
+  - Need to save the Images to any Third Party Servers.
+
+UI Fixes.
+  - Fix the celebration UI. Unnecessarily it is showing to the user.
+
+
+
+DONE
+  - Apply the loading UI or the Loading Bar on the top of Navigation.
+  - Apply the progress bar, when user scrolls through the page, progress bar needs to be updated.
