@@ -3,12 +3,30 @@ import { registrationService, sendUserRegistrationDetails } from "app/GlobalStor
 import { sendNotificationToast } from "app/GlobalStore/Slices/UISlice/UISlice";
 import { useAppDispatch, useAppSelector } from "app/GlobalStore/store";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
+export const convertImageToBase64 = (incomingFormObj: any) => {
+  const addressProof = incomingFormObj;
+};
 
 const Registration = () => {
+  const [uploadedBase64AddressProof, setUploadedBase64AddressProof] = useState<any>("");
   const dispatch = useAppDispatch();
   const navigate = useRouter();
   const userRegistered = useAppSelector((state) => state.registerSlice.registrationService.userRegistered);
+
+  const onAddressProofChangeHandler = (event: any) => {
+    const uploadedImage = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(uploadedImage);
+    reader.onload = () => {
+      const base64Result = reader.result;
+      // data:image/jpeg;base64,
+      setUploadedBase64AddressProof(`${base64Result}`);
+      return base64Result;
+    };
+  };
+
   const onRegistrationSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
@@ -31,8 +49,7 @@ const Registration = () => {
       phoneNumber: formData.get("phoneNumber"),
       passWord: formData.get("passWord"),
       user_role: formData.get("buyer-or-seller"),
-      // addressProof: formData.get("address-proof"),
-      addressProof: "address-proof",
+      addressProof: uploadedBase64AddressProof,
     };
 
     dispatch(sendUserRegistrationDetails({ registerUser: userEnteredRegObj }));
@@ -135,14 +152,15 @@ const Registration = () => {
         </label>
 
         {/* AddressProof */}
-
         <label className="block mt-3 border-0 border-green-800 cursor-pointer">
           <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3 cursor-pointer">
             Address Proof
           </span>
           <input
             type="file"
+            accept="image/*"
             name="address-proof"
+            onChange={onAddressProofChangeHandler}
             className="block w-full text-sm text-slate-500 pl-1 border border-slate-100 py-2 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 mt-2 cursor-pointer"
           />
         </label>

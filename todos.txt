@@ -2,12 +2,19 @@ Registration Page.
   - Need to collect the Government ID from the User.
   - An API to receive the Image from Node.js.
   - Need to save the Images to any Third Party Servers.
+  - Upload Profile Pic of the User.
+    - Show the profile pic upload button or the rounded image on the Registration Page.
+    - Once uploaded show the image on the UI.
 
 UI Fixes.
+  - Check the Mobile Navigation.
+  - Check the Mobile Responsiveness.
   - Fix the celebration UI. Unnecessarily it is showing to the user.
-
-
+  - Set the Phone Number TextField to the 10 digit number.
 
 DONE
   - Apply the loading UI or the Loading Bar on the top of Navigation.
   - Apply the progress bar, when user scrolls through the page, progress bar needs to be updated.
+
+
+Base 64 Image Viewer Tool

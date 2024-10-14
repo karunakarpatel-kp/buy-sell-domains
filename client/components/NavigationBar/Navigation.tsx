@@ -23,6 +23,10 @@ const Navigation = () => {
 
   const userLoggedInstatus = useAppSelector((state) => state.loginSlice.loginServiceState.userLoggedIn);
 
+  const loggedInUserDetails: any = useAppSelector(
+    (state) => state.userDetailSlice.getUserDetailsService.getUserDetailsServiceData
+  );
+
   const dispatch = useAppDispatch();
 
   const navigate = useRouter();
@@ -306,7 +310,17 @@ const Navigation = () => {
         >
           <div className="border-0 border-white text-white   max-w-7xl m-auto pt-14">
             <div className="kpImage border-0 border-sky-800 flex justify-center">
-              <Image src={KarunakarPatelImage} alt="Karunakar Patel Image" className="ring-2  rounded-full" />
+              <Image
+                src={
+                  loggedInUserDetails !== null && loggedInUserDetails.addressProof
+                    ? loggedInUserDetails.addressProof
+                    : KarunakarPatelImage
+                }
+                alt="Karunakar Patel Image"
+                className="ring-2  rounded-full "
+                width={250}
+                height={100}
+              />
             </div>
             <div className="text-white border-0 text-center pb-6">
               <h1 className="text-white font-bold text-3xl md:text-4xl">Welcome To VehicleMasti</h1>

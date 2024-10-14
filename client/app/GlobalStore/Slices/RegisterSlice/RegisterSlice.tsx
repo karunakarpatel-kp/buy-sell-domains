@@ -11,7 +11,7 @@ interface regUserObjProps {
     phoneNumber: string;
     passWord: string;
     user_role: string;
-    addressProof: any;
+    addressProof: string;
   };
   registrationService: {
     registrationServiceStatus: "PENDING" | "FULFILLED" | "REJECTED";
@@ -28,7 +28,7 @@ interface registrationPayloadProps {
     phoneNumber: string;
     passWord: string;
     user_role: string;
-    addressProof: any;
+    addressProof: string;
   };
 }
 export const initialState: regUserObjProps = {
@@ -39,7 +39,7 @@ export const initialState: regUserObjProps = {
     phoneNumber: "",
     passWord: "",
     user_role: "",
-    addressProof: null,
+    addressProof: "",
   },
   registrationService: {
     registrationServiceStatus: "PENDING",
