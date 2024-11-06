@@ -19,7 +19,20 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
+
+var corsOptions = {
+  origin: "*",
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*"); // Allow requests from your frontend
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); // Allow specific HTTP methods
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allow specific headers
+//   next();
+// });
 
 // ?Connecting to DB Here
 dbConnection();

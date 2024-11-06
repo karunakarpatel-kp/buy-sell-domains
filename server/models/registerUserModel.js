@@ -7,6 +7,7 @@ const registerUserModel = mongoose.Schema({
   phoneNumber: { type: String, unique: true, required: true },
   passWord: { type: String, required: true },
   user_role: { type: String, required: true },
+  profilePic: { type: String, required: true },
   addressProof: { type: String, required: true },
 });
 

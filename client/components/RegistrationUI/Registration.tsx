@@ -2,6 +2,7 @@
 import { registrationService, sendUserRegistrationDetails } from "app/GlobalStore/Slices/RegisterSlice/RegisterSlice";
 import { sendNotificationToast } from "app/GlobalStore/Slices/UISlice/UISlice";
 import { useAppDispatch, useAppSelector } from "app/GlobalStore/store";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -11,6 +12,7 @@ export const convertImageToBase64 = (incomingFormObj: any) => {
 
 const Registration = () => {
   const [uploadedBase64AddressProof, setUploadedBase64AddressProof] = useState<any>("");
+  const [uploadedBase64ProfilePic, setUploadedBase64ProfilePic] = useState<any>("");
   const dispatch = useAppDispatch();
   const navigate = useRouter();
   const userRegistered = useAppSelector((state) => state.registerSlice.registrationService.userRegistered);
@@ -23,6 +25,17 @@ const Registration = () => {
       const base64Result = reader.result;
       // data:image/jpeg;base64,
       setUploadedBase64AddressProof(`${base64Result}`);
+      return base64Result;
+    };
+  };
+
+  const onProfilePicChangeHandler = (event: any) => {
+    const uploadedImage = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(uploadedImage);
+    reader.onload = () => {
+      const base64Result = reader.result;
+      setUploadedBase64ProfilePic(`${base64Result}`);
       return base64Result;
     };
   };
@@ -49,6 +62,7 @@ const Registration = () => {
       phoneNumber: formData.get("phoneNumber"),
       passWord: formData.get("passWord"),
       user_role: formData.get("buyer-or-seller"),
+      profilePic: uploadedBase64ProfilePic,
       addressProof: uploadedBase64AddressProof,
     };
 
@@ -111,11 +125,11 @@ const Registration = () => {
             Phone Number
           </span>
           <input
-            type="number"
+            type="tel"
             name="phoneNumber"
             autoComplete="false"
             required
-            step={0}
+            maxLength={10}
             className="mt-1 px-3 py-2 bg-white border  border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md focus:ring-1 appearance-none [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
             placeholder="Phone Number"
           />
@@ -151,19 +165,59 @@ const Registration = () => {
           </select>
         </label>
 
+        {/* Profile Pic */}
+        <div className="grid grid-cols-12">
+          <div
+            className={`border-0 border-green-300 ${
+              uploadedBase64ProfilePic !== "" ? "col-span-12 lg:col-span-6" : "col-span-12"
+            }`}
+          >
+            <label className="block mt-3 border-0 border-green-100 cursor-pointer">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3 cursor-pointer">
+                Profile Pic
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                name="profile-pic"
+                onChange={onProfilePicChangeHandler}
+                className="block w-full text-sm text-slate-500 pl-1 border border-slate-100 py-2 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 mt-2 cursor-pointer"
+              />
+            </label>
+          </div>
+          {uploadedBase64ProfilePic !== "" && (
+            <div className="border-0 border-green-300 col-span-12 lg:col-span-6  relative h-[320px] max-h-[320px] overflow-y-scroll overflow-x-hidden ">
+              <Image src={uploadedBase64ProfilePic} alt="hi" className="flex-1 w-auto  h-auto rounded-2xl" fill />
+            </div>
+          )}
+        </div>
+
         {/* AddressProof */}
-        <label className="block mt-3 border-0 border-green-800 cursor-pointer">
-          <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3 cursor-pointer">
-            Address Proof
-          </span>
-          <input
-            type="file"
-            accept="image/*"
-            name="address-proof"
-            onChange={onAddressProofChangeHandler}
-            className="block w-full text-sm text-slate-500 pl-1 border border-slate-100 py-2 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 mt-2 cursor-pointer"
-          />
-        </label>
+        <div className="grid grid-cols-12">
+          <div
+            className={`border-0 border-green-300 ${
+              uploadedBase64AddressProof !== "" ? "col-span-12 lg:col-span-6" : "col-span-12"
+            }`}
+          >
+            <label className="block mt-3 border-0 border-green-800 cursor-pointer">
+              <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium text-slate-700 pl-1 mt-3 cursor-pointer">
+                Address Proof
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                name="address-proof"
+                onChange={onAddressProofChangeHandler}
+                className="block w-full text-sm text-slate-500 pl-1 border border-slate-100 py-2 rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 mt-2 cursor-pointer"
+              />
+            </label>
+          </div>
+          {uploadedBase64AddressProof !== "" && (
+            <div className="border-0 border-green-300 col-span-12 lg:col-span-6 relative h-[320px] max-h-[320px] overflow-y-scroll overflow-x-hidden ">
+              <Image src={uploadedBase64AddressProof} alt="hi" className="flex-1 w-auto  h-auto rounded-2xl p-3" fill />
+            </div>
+          )}
+        </div>
 
         {/* Submit */}
         <label className="block mt-3">

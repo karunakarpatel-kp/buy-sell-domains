@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { sendConfetti, sendNotificationToast } from "../UISlice/UISlice";
 import { useRouter } from "next/navigation";
+import axiosInstance from "app/axiosInstance";
 
 interface regUserObjProps {
   registerUser: {
@@ -12,6 +13,7 @@ interface regUserObjProps {
     passWord: string;
     user_role: string;
     addressProof: string;
+    profilePic: string;
   };
   registrationService: {
     registrationServiceStatus: "PENDING" | "FULFILLED" | "REJECTED";
@@ -29,6 +31,7 @@ interface registrationPayloadProps {
     passWord: string;
     user_role: string;
     addressProof: string;
+    profilePic: string;
   };
 }
 export const initialState: regUserObjProps = {
@@ -40,6 +43,7 @@ export const initialState: regUserObjProps = {
     passWord: "",
     user_role: "",
     addressProof: "",
+    profilePic: "",
   },
   registrationService: {
     registrationServiceStatus: "PENDING",
@@ -54,14 +58,14 @@ export const registrationService = createAsyncThunk(
     const incomingData = JSON.stringify(incomingObj);
     const config = {
       method: "POST",
-      url: "http://localhost:5050/register",
+      // url: "http://localhost:5050/register",
       headers: {
         "Content-Type": "application/json",
       },
       data: incomingData,
     };
     try {
-      const resP = await axios(config);
+      const resP = await axiosInstance("/register", config);
       const dataResp = await resP.data;
       thunkAPI.dispatch(sendNotificationToast({ Toast: { message: dataResp.message, variant: "success" } }));
       thunkAPI.dispatch(sendConfetti(true));
@@ -85,6 +89,7 @@ export const registerSlice = createSlice({
       state.registerUser.userName = action.payload.registerUser.userName;
       state.registerUser.user_role = action.payload.registerUser.user_role;
       state.registerUser.addressProof = action.payload.registerUser.addressProof;
+      state.registerUser.profilePic = action.payload.registerUser.profilePic;
     },
   },
   extraReducers: (builder) => {

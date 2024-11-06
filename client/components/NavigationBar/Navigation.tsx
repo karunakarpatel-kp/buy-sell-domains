@@ -323,7 +323,10 @@ const Navigation = () => {
               />
             </div>
             <div className="text-white border-0 text-center pb-6">
-              <h1 className="text-white font-bold text-3xl md:text-4xl">Welcome To VehicleMasti</h1>
+              <h1 className="text-white font-bold text-3xl md:text-4xl">
+                Welcome{" "}
+                {loggedInUserDetails !== null && loggedInUserDetails.fullName ? loggedInUserDetails.fullName : "User"}
+              </h1>
               <p className="text-white font-semibold text-xl">A Place where you will learn about Automobiles</p>
             </div>
           </div>
