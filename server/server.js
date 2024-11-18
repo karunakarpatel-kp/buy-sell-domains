@@ -17,24 +17,22 @@ const dbConnection = require("./DBConnection/mongooseConnection.js");
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-var corsOptions = {
-  origin: "*",
-  optionSuccessStatus: 200,
+const corsOptions = {
+  // ?Connecting to DB Here
+  origin: "http://localhost:3000", // Only allow this origin
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  credentials: true, // Include cookies, if needed
 };
 
 app.use(cors(corsOptions));
 
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*"); // Allow requests from your frontend
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); // Allow specific HTTP methods
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allow specific headers
-//   next();
-// });
+app.options("*", cors(corsOptions)); // Allow all routes to handle OPTIONS requests
 
-// ?Connecting to DB Here
+app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+app.use(bodyParser.json({ limit: "50mb" }));
+
+// Connecting to the DataBase
 dbConnection();
 
 // ? Adding Routes Below

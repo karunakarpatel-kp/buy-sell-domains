@@ -308,12 +308,12 @@ const Navigation = () => {
               : "hidden"
           }`}
         >
-          <div className="border-0 border-white text-white   max-w-7xl m-auto pt-14">
-            <div className="kpImage border-0 border-sky-800 flex justify-center">
+          <div className="border-0 border-white text-white max-w-7xl m-auto pt-14">
+            <div className="kpImage border-0 border-sky-800 justify-center hidden">
               <Image
                 src={
                   loggedInUserDetails !== null && loggedInUserDetails.addressProof
-                    ? loggedInUserDetails.addressProof
+                    ? loggedInUserDetails.profilePic
                     : KarunakarPatelImage
                 }
                 alt="Karunakar Patel Image"
@@ -322,12 +322,14 @@ const Navigation = () => {
                 height={100}
               />
             </div>
-            <div className="text-white border-0 text-center pb-6">
+            <div className="text-white border-0 text-center pb-6 mt-11">
               <h1 className="text-white font-bold text-3xl md:text-4xl">
                 Welcome{" "}
-                {loggedInUserDetails !== null && loggedInUserDetails.fullName ? loggedInUserDetails.fullName : "User"}
+                {loggedInUserDetails !== null && loggedInUserDetails.fullName ? loggedInUserDetails.fullName : ""}
               </h1>
-              <p className="text-white font-semibold text-xl">A Place where you will learn about Automobiles</p>
+              <p className="text-white font-semibold text-xl capitalize underline underline-offset-4 decoration-1 decoration-slate-400">
+                A Place where you can buy or sell already approved Google Adsense Websites
+              </p>
             </div>
           </div>
         </div>

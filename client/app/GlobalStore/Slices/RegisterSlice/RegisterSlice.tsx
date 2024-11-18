@@ -55,17 +55,8 @@ export const initialState: regUserObjProps = {
 export const registrationService = createAsyncThunk(
   "registrationService",
   async (incomingObj: regUserObjProps, thunkAPI) => {
-    const incomingData = JSON.stringify(incomingObj);
-    const config = {
-      method: "POST",
-      // url: "http://localhost:5050/register",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: incomingData,
-    };
     try {
-      const resP = await axiosInstance("/register", config);
+      const resP = await axiosInstance.post("/register", incomingObj);
       const dataResp = await resP.data;
       thunkAPI.dispatch(sendNotificationToast({ Toast: { message: dataResp.message, variant: "success" } }));
       thunkAPI.dispatch(sendConfetti(true));

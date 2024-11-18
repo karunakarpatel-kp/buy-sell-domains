@@ -31,18 +31,8 @@ interface incomingObjProps {
 export const loginUserService = createAsyncThunk(
   "loginUserService",
   async (incomingObj: incomingObjProps, thunkAPI) => {
-    let data = JSON.stringify(incomingObj);
-    let config = {
-      method: "post",
-      // url: `http://localhost:5050/login`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
     try {
-      const resp = await axiosInstance("/login", config);
+      const resp = await axiosInstance.post("/login", incomingObj);
       const respData = await resp.data;
       thunkAPI.dispatch(sendNotificationToast({ Toast: { message: resp.data.message, variant: "success" } }));
       thunkAPI.dispatch(sendConfetti(true));

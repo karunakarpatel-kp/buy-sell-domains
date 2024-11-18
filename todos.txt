@@ -6,6 +6,8 @@ Registration Page.
     - Show the profile pic upload button or the rounded image on the Registration Page.
     - Once uploaded show the image on the UI.
 
+- Fix the getUserDetails service Bug
+
 UI Fixes.
   - Check the Mobile Navigation.
   - Check the Mobile Responsiveness.
@@ -19,6 +21,8 @@ DONE
 
 Base 64 Image Viewer Tool
 
+Known Bugs
+  1. When unsuccessfull registration, i cannot go the page from /login to /register.
 
 
 .ENV

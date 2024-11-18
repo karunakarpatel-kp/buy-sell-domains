@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CustomMetaData } from "components/MetaData/CustomMetaData";
 
-export const metadata: any = CustomMetaData({ presentURL: SEO_OBJ.HOME_PAGE.absoluteURL });
+// export const metadata: any = CustomMetaData({ presentURL: SEO_OBJ.HOME_PAGE.absoluteURL });
 
 export default function Home() {
   return (
