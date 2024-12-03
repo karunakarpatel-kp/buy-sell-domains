@@ -16,19 +16,23 @@ const Login = () => {
   const onFormSubmit = (event: any) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-
     const userEnteredObj = {
       userName: formData.get("userName") as string,
       passWord: formData.get("passWord") as string,
     };
-    dispatch(sendLoginUserCred(userEnteredObj));
-    dispatch(loginUserService(userEnteredObj));
+    const removedSpacesUserEnteredObj = {
+      userName: userEnteredObj.userName.trim().replace(/\s+/g, ""),
+      passWord: userEnteredObj.passWord,
+    };
+    dispatch(sendLoginUserCred(removedSpacesUserEnteredObj));
+    dispatch(loginUserService(removedSpacesUserEnteredObj));
   };
 
   useEffect(() => {
     if (loginUserServiceStatus === "FULLFILLED") {
       const loginToken = loginUserServiceData.token;
-      dispatch(getUserDetailsService(loginToken));
+      localStorage.setItem("loginToken", loginToken);
+      dispatch(getUserDetailsService());
       navigate.push("/");
     }
   }, [loginUserServiceStatus]);

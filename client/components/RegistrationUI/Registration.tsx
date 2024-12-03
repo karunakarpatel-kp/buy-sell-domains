@@ -55,17 +55,19 @@ const Registration = () => {
       return;
     }
 
+    const userNameFromForm = ((formData.get("userName") as string) || "").toString().trim().replace(/\s+/g, "");
+    const passWordFromForm = ((formData.get("passWord") as string) || "").toString().trim();
+
     const userEnteredRegObj: any = {
-      userName: formData.get("userName"),
+      userName: userNameFromForm,
       fullName: formData.get("fullName"),
       email: formData.get("email"),
       phoneNumber: formData.get("phoneNumber"),
-      passWord: formData.get("passWord"),
+      passWord: passWordFromForm,
       user_role: formData.get("buyer-or-seller"),
       profilePic: uploadedBase64ProfilePic,
       addressProof: uploadedBase64AddressProof,
     };
-
     dispatch(sendUserRegistrationDetails({ registerUser: userEnteredRegObj }));
     dispatch(registrationService(userEnteredRegObj));
   };

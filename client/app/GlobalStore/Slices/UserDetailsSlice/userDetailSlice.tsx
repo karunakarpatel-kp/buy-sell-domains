@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axiosInstance from "app/axiosInstance";
 import axios from "axios";
 
 interface getUserDetailsServiceProps {
@@ -17,21 +18,9 @@ const initialState = {
   userSelectedSubscription: null,
 };
 
-export const getUserDetailsService = createAsyncThunk("getUserDetailsService", async (incomingObj: any, thunkAPI) => {
-  const token = incomingObj;
-  let data;
-  const config = {
-    url: "http://localhost:5050/getUserDetails",
-    method: "POST",
-    headers: {
-      "Content-Type": "applicaton/json",
-      Authorization: `Bearer ${token}`,
-    },
-    data: data,
-  };
-
+export const getUserDetailsService = createAsyncThunk("getUserDetailsService", async (_, thunkAPI) => {
   try {
-    const resP = await axios(config);
+    const resP = await axiosInstance.post("/getUserDetails", {});
     const resPdata = await resP.data;
     return resPdata;
   } catch (err: any) {

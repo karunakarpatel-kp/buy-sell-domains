@@ -8,19 +8,17 @@ const axiosInstance = axios.create({
   },
 });
 
-// axiosInstance.interceptors.request.use(
-//   (config) => {
-//     // Example: Add a token to the headers if needed
-//     const token = localStorage.getItem("authToken"); // Replace with your token logic
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     // Handle request error
-//     return Promise.reject(error);
-//   }
-// );
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const loginTokenFromLocal = localStorage.getItem("loginToken");
+    if (loginTokenFromLocal) {
+      config.headers.Authorization = `Bearer ${loginTokenFromLocal}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export default axiosInstance;
